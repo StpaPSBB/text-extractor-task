@@ -57,11 +57,9 @@ def process_images(image_folder, lang='ru'):
         h = img.shape[0]
         roi = img[int(h * 0.7):h, :]
 
-        # Убран paragraph=True, который ломает структуру в некоторых версиях
         res = reader.readtext(roi, detail=1)
         texts = []
         for item in res:
-            # Безопасная проверка: (bbox, text, confidence)
             if len(item) >= 3 and item[2] > 0.6:
                 texts.append(item[1])
         current_text = " ".join(texts).strip()
